@@ -1,0 +1,362 @@
+<!-- Copyright (c) 2022 8th Wall, Inc. -->
+<!-- body.html is optional; elements will be added to your html body after app.js is loaded. -->
+
+<!-- Splash Screen setup -->
+<div id="splash">
+  <div class="carousel-container">
+    <div class="carousel">
+      <div class="card">
+        <img src="./assets/1_1.png" alt="Image 1" />
+      </div>
+      <div class="card">
+        <img src="./assets/2_2.png" alt="Image 2" />
+      </div>
+      <div class="card" id="third-slide">
+        <img src="./assets/3_1.png" alt="Image 3" />
+      </div>
+    </div>
+    <button class="start-btn">Start</button>
+    <button class="next-arrow-btn left-arrow">
+      <img src="./assets/l.png" alt="left" />
+    </button>
+    <button class="next-arrow-btn right-arrow">
+      <img src="./assets/r.png" alt="right" />
+    </button>
+  </div>
+</div>
+
+<div class="backButton">Back</div>
+
+<a-scene
+  proximity-trigger
+  splash-screen
+  landing-page
+  xrextras-gesture-detector
+  xrextras-loading
+  xrextras-runtime-error
+  renderer="colorManagement: true"
+  xrweb="allowedDevices: any;">
+  
+  <!-- Loading all the assets for the scene -->
+  <a-assets>
+    <a-asset-item id="carpetModel" src="./assets/carpet.glb"></a-asset-item>
+    <a-asset-item id="ropeModel" src="./assets/red_velvet_rope2.glb"></a-asset-item>
+    <a-asset-item id="churchSphere" src="./assets/church1.glb"></a-asset-item>
+    <a-asset-item id="salzburgSphere" src="./assets/salzburg.glb"></a-asset-item>
+    <a-asset-item id="geburtsSphere" src="./assets/geburtshaus.glb"></a-asset-item>
+    <a-asset-item id="pedestalLeft" src="./assets/pedestalLeft.glb"></a-asset-item>
+    <a-asset-item id="pedestalRight" src="./assets/pedestalRight.glb"></a-asset-item>
+    <a-asset-item id="pedestalWedding" src="./assets/wedding-painting.glb"></a-asset-item>
+    <a-asset-item id="klavierModel" src="./assets/klavier.glb"></a-asset-item>
+    <a-asset-item id="infantMozart" src="./assets/infant_mozart1.glb"></a-asset-item>
+    <a-asset-item id="musicStand" src="./assets/music_stand.glb"></a-asset-item>
+    <a-asset-item id="s40Stand" src="./assets/s40_stand.glb"></a-asset-item>
+    <a-asset-item id="mozartStudy" src="./assets/mozart_study.glb"></a-asset-item>
+    <a-asset-item id="mozartMonument" src="./assets/mozart-denkmal1.glb"></a-asset-item>
+    <a-asset-item id="odePainting" src="./assets/odetomozart.glb"></a-asset-item>
+    <a-asset-item id="mozartBust" src="./assets/mozart_bust2.glb"></a-asset-item>
+    <a-asset-item id="travelsWall" src="./assets/wall.glb"></a-asset-item>
+    <a-asset-item id="tulips" src="./assets/tulips_bouquet.glb"></a-asset-item>
+    <a-asset-item id="glowBall" src="./assets/ball.glb"></a-asset-item>
+    <a-asset-item id="constanzePainting" src="./assets/constanze.glb"></a-asset-item>
+    <a-asset-item id="graveMon" src="./assets/grave1.glb"></a-asset-item>
+    <a-asset-item id="unfinished" src="./assets/unfinished.glb"></a-asset-item>
+    <audio id="bg" src="assets/clarinet_concerto_1.mp3" preload="auto"></audio>
+    <audio id="vo_e1" src="assets/menuet2.mp3" preload="auto"></audio>
+    <audio id="vo_e2" src="assets/Symphony25_1.mp3" preload="auto"></audio>
+    <audio id="vo_e3" src="assets/Figaro_1.mp3" preload="auto"></audio>
+    <audio id="vo_e4" src="assets/Symphony40_1.mp3" preload="auto"></audio>
+    <audio id="vo_e5" src="assets/requiem.mp3" preload="auto"></audio>
+    <audio id="vo_e34" src="assets/exhibit3.mp3" preload="auto"></audio>
+    <audio id="klavierAudio" src="assets/klavier.mp3" preload="auto"></audio>
+  </a-assets>
+
+  <!-- Camera -->
+  <a-camera
+    id="camera"
+    position="0 2 1"
+    raycaster="objects: .cantap"
+    cursor="fuse: false; rayOrigin: mouse;"
+    sound="autoplay: true; src: #bg; loop: true;">
+  </a-camera>
+
+  <!-- Lighting -->
+  <a-entity
+    xr-light
+    light="type: directional;
+      castShadow: true;
+      shadowMapHeight:2048;
+      shadowMapWidth:2048;
+      target: #carpet;
+      shadowRadius: 2"
+    xrextras-attach="target: carpet; offset: 0 15 0;"
+    shadow>
+  </a-entity>
+  <a-light type="ambient" intensity="0.7"></a-light>
+
+  <!-- Capture functionality -->
+  <xrextras-capture-button></xrextras-capture-button>
+  <xrextras-capture-preview></xrextras-capture-preview>
+
+  <!-- Carpet -->
+  <a-entity
+    id="carpet"
+    gltf-model="#carpetModel"
+    position="0 0.05 0"
+    scale="10 5 13"
+    shadow="receive: false"
+    no-cull>
+  </a-entity>
+
+  <!-- Side rails -->
+  <a-entity shadow="receive: false"
+    ><a-entity gltf-model="#ropeModel" position="-2 0 -1" reflections="type: static"></a-entity>
+    <a-entity gltf-model="#ropeModel" position="2 0 -1" reflections="type: static"></a-entity>
+    <a-entity gltf-model="#ropeModel" position="-2 0 -5" reflections="type: static"></a-entity>
+    <a-entity gltf-model="#ropeModel" position="2 0 -5" reflections="type: static"></a-entity>
+    <a-entity gltf-model="#ropeModel" position="-2 0 -9" reflections="type: static"></a-entity>
+    <a-entity gltf-model="#ropeModel" position="2 0 -9" reflections="type: static"></a-entity>
+    <a-entity gltf-model="#ropeModel" position="-2 0 -13" reflections="type: static"></a-entity>
+    <a-entity gltf-model="#ropeModel" position="2 0 -13" reflections="type: static"></a-entity>
+    <a-entity gltf-model="#ropeModel" position="-2 0 -17" reflections="type: static"></a-entity>
+    <a-entity gltf-model="#ropeModel" position="2 0 -17" reflections="type: static"></a-entity>
+    <a-entity gltf-model="#ropeModel" position="-2 0 -21" reflections="type: static"></a-entity>
+    <a-entity gltf-model="#ropeModel" position="2 0 -21" reflections="type: static"></a-entity>
+    <a-entity
+      gltf-model="#ropeModel"
+      position="0 0 -23"
+      rotation="0 90 0"
+      reflections="type: static"></a-entity
+  ></a-entity>
+
+  <!-- Exhibit 1: Early Life -->
+  <a-entity
+    class="exhibit"
+    id="exhibit1"
+    gltf-model="#pedestalLeft"
+    position="-5 0 -4"
+    shadow="receive: false">
+    <a-image
+      position="2 1 0"
+      src="./assets/ex1.png"
+      width="1.5"
+      height="0.5"
+      look-at="target: #camera; tilt: true"></a-image>
+    <a-entity
+      id="bust"
+      gltf-model="#infantMozart"
+      position="0 1.8 0"
+      scale="0.2 0.2 0.2"
+      rotation="0 90 0">
+      <a-text
+        class="info"
+        value="Bust of infant Mozart\nplaying the violin"
+        align="center"
+        scale="3 3 3"
+        position="0 -1 4"></a-text
+    ></a-entity>
+    <a-entity id="exhibit1-1" gltf-model="#pedestalLeft" position="0 0 2.5">
+      <a-entity
+        class="cantap"
+        id="church"
+        gltf-model="#churchSphere"
+        position="0 2.5 0"
+        scale="0.6 0.6 0.6"
+        animation="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 10000; easing: linear;">
+      </a-entity>
+      <a-text class="info" value="Church Boden" position="0 3.5 1" rotation="0 90 0"></a-text>
+    </a-entity>
+    <a-entity id="exhibit1-2" gltf-model="#pedestalLeft" position="0 0 -2.5">
+      <a-entity
+        class="cantap"
+        id="salzburg"
+        gltf-model="#salzburgSphere"
+        position="0 2.5 0"
+        scale="0.6 0.6 0.6"
+        animation="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 10000; easing: linear;">
+      </a-entity>
+      <a-text class="info" value="Salzburg, Austria" position="0 3.5 1" rotation="0 90 0"></a-text>
+    </a-entity>
+    <a-entity
+      id="klavier"
+      class="cantap"
+      gltf-model="#klavierModel"
+      rotation="0 135 0"
+      scale="0.2 0.2 0.2"
+      position="10 0 1">
+      <a-text
+        class="info"
+        value="Klavier played by Mozart\nin early childhood"
+        align="center"
+        scale="5 5 5"
+        position="10 10 0"
+        rotation="0 135 0"></a-text
+    ></a-entity>
+  </a-entity>
+
+  <!-- Exhibit 2: Travels -->
+  <a-entity
+    class="exhibit"
+    id="exhibit2"
+    position="5 0 -10"
+    rotation="0 180 0"
+    gltf-model="#travelsWall"
+    shadow="receive: false">
+    <a-text
+      class="info"
+      value="A map of Mozart Family's\nEurope Journey"
+      align="center"
+      position="1 1 -2"
+      rotation="0 75 0"
+      scale="0.7 0.7 0.7"></a-text>
+    <a-image
+      position="2 1 0"
+      src="./assets/ex2.png"
+      width="1.5"
+      height="0.5"
+      look-at="target: #camera; tilt: true"></a-image>
+  </a-entity>
+
+  <!-- Exhibit 3: Accomplishments -->
+  <a-entity
+    class="exhibit"
+    id="exhibit3"
+    position="-5 0 -11"
+    gltf-model="#pedestalLeft"
+    shadow="receive: false">
+    <a-entity
+      gltf-model="#mozartBust"
+      position="0 1.8 0"
+      scale="0.5 0.5 0.5"
+      rotation="0 0 0"></a-entity>
+    <a-image
+      position="1 1 0"
+      src="./assets/ex3.png"
+      width="1.5"
+      height="0.5"
+      look-at="target: #camera; tilt: true"></a-image>
+    <a-entity gltf-model="#s40Stand" position="0 0 -1.5" rotation="0 45 0"></a-entity>
+    <a-entity gltf-model="#s40Stand" position="0 0 1.5" rotation="0 135 0"></a-entity>
+  </a-entity>
+
+  <!-- Exhibit 4: Marriage -->
+  <a-entity
+    class="exhibit"
+    id="exhibit4"
+    position="-5 0 -18"
+    gltf-model="#pedestalLeft"
+    shadow="receive: false">
+    <a-entity gltf-model="#constanzePainting" position="-1 0.2 0" rotation="0 0 -20">
+      <a-text
+        class="info"
+        value="A rare portrait of\n Widowed Contanze Mozart\nand family"
+        align="center"
+        position="0 3 0"
+        rotation="-20 90 0"
+        scale="0.7 0.7 0.7"></a-text>
+    </a-entity>
+    <a-image
+      position="2 1 0"
+      src="./assets/ex4.png"
+      width="1.5"
+      height="0.5"
+      look-at="target: #camera; tilt: true"></a-image>
+    <a-entity gltf-model="#unfinished" position="0 0 2.5">
+      <a-text
+        class="info"
+        value="“Mozart at the Pianoforte,”\nan unfinished portrait from 1789,\nby Joseph Lange"
+        align="center"
+        position="0 3.1 0"
+        rotation="0 90 0"
+        scale="0.6 0.6 0.6"></a-text>
+    </a-entity>
+    <a-entity gltf-model="#pedestalWedding" position="0 0 -2.5">
+      <a-text
+        class="info"
+        value="A portrait of Wolfgang\nand Constanze Mozart"
+        align="center"
+        position="0 3.1 0"
+        rotation="0 90 0"
+        scale="0.6 0.6 0.6"></a-text></a-entity
+  ></a-entity>
+
+  <!-- Exhibit 5: Later Life -->
+  <a-entity
+    class="exhibit"
+    id="exhibit5"
+    position="5 0 -15"
+    gltf-model="#pedestalRight"
+    shadow="receive: false">
+    <a-entity gltf-model="#mozartStudy" position="1 0.2 0" rotation="0 180 -20">
+      <a-text
+        class="info"
+        value="Mozart in his study\nin Kahlenberg\nnear Vienna"
+        align="center"
+        position="0 3.1 0"
+        rotation="-20 90 0"
+        scale="0.7 0.7 0.7"
+        rotation></a-text>
+    </a-entity>
+    <a-image
+      position="-2 1 -2"
+      src="./assets/ex5.png"
+      width="1.5"
+      height="0.5"
+      look-at="target: #camera; tilt: true"></a-image>
+    <!-- <a-entity gltf-model="#pedestalRight" position="0 0 2.5"> </a-entity>
+    <a-entity gltf-model="#pedestalRight" position="0 0 -2.5"></a-entity> -->
+    <a-entity gltf-model="#odePainting" position="0 0 -4" rotation="0 45 -20" scale="2 2 2">
+      <a-text
+        class="info"
+        value="Ryan Smoluk's\nOde to Mozart"
+        align="center"
+        position="0 1 -1.5"
+        scale="0.6 0.6 0.6"
+        rotation="0 -90 0"></a-text>
+    </a-entity>
+  </a-entity>
+
+  <!-- Mozart Monument -->
+  <a-entity
+    class="exhibit"
+    id="exhibit6"
+    position="0 0 -25"
+    gltf-model="#mozartMonument"
+    shadow="receive: false"
+    exhibit6-component>
+    <a-entity
+      id="flowers"
+      gltf-model="#glowBall"
+      position="0 2 2"
+      class="cantap"
+      animation="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 10000; easing: linear;"></a-entity>
+    <a-image
+      position="0 1 2.5"
+      src="./assets/ex6.png"
+      width="1.5"
+      height="0.5"
+      look-at="target: #camera; tilt: true"></a-image>
+    <a-entity
+      class="cantap"
+      id="geburtshaus"
+      gltf-model="#geburtsSphere"
+      position="0 1 -2"
+      scale="0.6 0.6 0.6"
+      animation="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 10000; easing: linear;">
+    </a-entity
+    ><a-text
+      value="Mozart Geburtshaus\nSalzburg, Austria"
+      align="center"
+      rotation="0 180 0"
+      position="0 2 -2.5"></a-text
+  ></a-entity>
+
+  <!-- Ground (for shadows) -->
+  <a-plane
+    id="ground"
+    rotation="-90 0 0"
+    width="100"
+    height="100"
+    material="shader: shadow; opacity: 0.35;"
+    shadow></a-plane>
+</a-scene>
