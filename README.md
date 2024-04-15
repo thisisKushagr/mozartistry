@@ -1,4 +1,4 @@
-# MozARTistry: A Musical Voyage
+# MozARTistry: A Musical Voyage (try the deployed app [here](https://immersivity.8thwall.app/mozartistry/))
 
 Welcome to MozARTistry, an immersive AR experience that takes you on a captivating journey through the life and music of Wolfgang Amadeus Mozart. 
 
